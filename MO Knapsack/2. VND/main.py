@@ -18,10 +18,10 @@ for ins in range(1,2):
     cputime = time.time()
     
     # Initial solution
-    F = construction(N,M,P,c,a,b)
+    F, ns = construction(N,M,P,c,a,b)
 
     # Improvement
-    F = vnd(N,M,P,c,a,b,F,cputime)
+    F, ns = vnd(N,M,P,c,a,b,F,ns,cputime)
 
-    print(F.Z)
+    print(ns)
     print("%1.2f \t" % (time.time()-cputime))

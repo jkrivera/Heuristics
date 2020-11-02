@@ -121,6 +121,8 @@ def construction(N,M,P,c,a,b):
             Xn[0]=Xn[0]+1
             Xn[int(Xn[0])] = i
 
-    F = Solution(X,Xs,Xn,Z,R)
+    F = []
+    F.append(Solution(X,Xs,Xn,Z,R,np.zeros((6))))
+    ns = 1
 
-    return F
+    return F, ns

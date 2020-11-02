@@ -31,8 +31,6 @@ def reading(ins):
     b = np.zeros((M))
     for i in range(M):
         b[i] = sheet.cell(row=2+i, column=1+N).value
-        
-    P = 1
 
     
     return N, M, P, c, a, b

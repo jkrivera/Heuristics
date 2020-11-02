@@ -1,21 +1,25 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Fri Oct 30 17:58:10 2020
 
-@author: jrivera6
-"""
+from xlrd import open_workbook
 import numpy as np
+import time
+import random
 
-from solution_class import Solution
 
+from reading import reading
 
-def construction(N,M,P,c,a,b):
+f = np.zeros((20))
 
+for ins in range(1,21):
+    N, M, P, c, a, b = reading(ins)
+    
+    cputime = time.time()
+    
     X = np.zeros((N))
     
     R = np.zeros((M))
     
-    Z = np.zeros((P+1))
+    Z = np.zeros((P))
     
     UB = np.zeros((P))
     for p in range(P):
@@ -105,22 +109,10 @@ def construction(N,M,P,c,a,b):
                     fact = 0
             for p in range(P):
                 Z[p] = Z[p] + c[p][sel]
-    
-    Z[p+1] = 0
-    for i in range(M):
-        if R[i]>b[i]:
-            Z[p+1] = Z[p+1] +1
-            
-    Xs = np.zeros((N+1))
-    Xn = np.zeros((N+1))
-    for i in range(N):
-        if X[i]==1:
-            Xs[0]=Xs[0]+1
-            Xs[int(Xs[0])] = i
-        else:
-            Xn[0]=Xn[0]+1
-            Xn[int(Xn[0])] = i
 
-    F = Solution(X,Xs,Xn,Z,R)
-
-    return F
+    print("I" + str(ins))
+    print(fact)
+    print("%1.2f \t" % (time.time()-cputime))
+    print("")
+    f[ins-1] = fact
+print(str(f))
