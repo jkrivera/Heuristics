@@ -10,9 +10,11 @@ from solution_class import Solution
 from reading import reading
 from construction import construction
 from vnd import vnd
+from ils import ils
 
 
-for ins in range(1,2):
+cp = 0.10
+for ins in range(1,21):
     N, M, P, c, a, b = reading(ins)
     
     cputime = time.time()
@@ -21,7 +23,7 @@ for ins in range(1,2):
     F = construction(N,M,P,c,a,b)
 
     # Improvement
-    F = vnd(N,M,P,c,a,b,F,cputime)
+    F = ils(N,M,P,c,a,b,F,cputime,cp)
 
     print(F.Z)
     print("%1.2f \t" % (time.time()-cputime))

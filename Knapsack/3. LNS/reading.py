@@ -17,6 +17,7 @@ def reading(ins):
     N = sheet["A1"].value
     M = sheet["B1"].value
     P = sheet["C1"].value
+    P = 1
     
     c = np.zeros((P,N))
     for p in range(P):

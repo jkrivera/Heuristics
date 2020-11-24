@@ -18,13 +18,10 @@ def construction(N,M,P,c,a,b):
     Z = np.zeros((P+1))
     
     UB = np.zeros((P))
-    LB = np.zeros((P))
     for p in range(P):
         for j in range(N):
             if c[p][j] > 0:
                 UB[p] = UB[p] + c[p][j]
-            if c[p][j] < 0:
-                LB[p] = LB[p] + c[p][j]
     
     check = np.zeros((N))
     
@@ -124,8 +121,6 @@ def construction(N,M,P,c,a,b):
             Xn[0]=Xn[0]+1
             Xn[int(Xn[0])] = i
 
-    F = []
-    F.append(Solution(X,Xs,Xn,Z,R))
-    ns = 1
+    F = Solution(X,Xs,Xn,Z,R)
 
-    return F, ns, UB, LB
+    return F

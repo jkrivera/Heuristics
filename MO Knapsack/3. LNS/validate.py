@@ -31,3 +31,5 @@ def validate(N,M,P,c,a,b,F,nsnew):
         
         if Zv[P] != F[s].Z[P]:
             print("Error")
+    
+    P=P

@@ -1,36 +1,32 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Oct 30 17:58:10 2020
-
-@author: jrivera6
-"""
 import numpy as np
+import random
+from gurobipy import *
+
 
 from solution_class import Solution
 
 
-def construction(N,M,P,c,a,b):
+def Rgreedy(N,M,P,c,a,b,Fp,F,cputime):
 
-    X = np.zeros((N))
     
-    R = np.zeros((M))
-    
-    Z = np.zeros((P+1))
-    
-    UB = np.zeros((P))
-    LB = np.zeros((P))
-    for p in range(P):
-        for j in range(N):
-            if c[p][j] > 0:
-                UB[p] = UB[p] + c[p][j]
-            if c[p][j] < 0:
-                LB[p] = LB[p] + c[p][j]
+    X = Fp[0].X.copy()
+    Xs = Fp[0].Xs.copy()
+    Xn = Fp[0].Xn.copy()
+    Z = Fp[0].Z.copy()
+    R = Fp[0].R.copy()
     
     check = np.zeros((N))
+    for i in range(int(Xs[0]+1)):
+        check[int(Xs[i])] = 1
     
     ap = np.zeros((M, N))
     
-    fact = 0
+    if Z[P] > 0:
+        fact = 0
+    else:
+        fact = 1
+    
+    Xn = np.zeros((N+1))
 
 
 # Find a feasible solution
@@ -46,6 +42,8 @@ def construction(N,M,P,c,a,b):
                     ap[i][j] = a[i][j] / (b[i]-R[i]+0.001)
                     if b[i] >= 0 and R[i]+a[i][j] > b[i]:
                         check[j] = 1
+                        Xn[0] = Xn[0] + 1
+                        Xn[int(Xn[0])] = j
                         break
                     if b[i] >= 0 and ap[i][j] > Rp[j]:
                         Rp[j] = ap[i][j]
@@ -64,6 +62,8 @@ def construction(N,M,P,c,a,b):
 
         if sel >= 0:                                
             X[sel] = 1
+            Xs[0] = Xs[0] + 1
+            Xs[int(Xs[0])] = sel
             check[sel] = 1
             fact = 1
             for i in range(M):
@@ -82,13 +82,15 @@ def construction(N,M,P,c,a,b):
         sel = -1
         for j in range(N):
             if check[j] == 0:
+                Rp[j] = 0
                 for p in range(P):
-                    ap[p][j] = (UB[p]-Z[p])/UB[p]
-                    if Rp[j] > ap[p][j]:
-                        Rp[j] = ap[p][j]
+                    ap[p][j] = Z[p]+c[p][j]
+                    Rp[j] = Rp[j] + ap[p][j]
                 for i in range(M):
                     if R[i]+a[i][j] > b[i]:
                         check[j] = 1
+                        Xn[0] = Xn[0] + 1
+                        Xn[int(Xn[0])] = j
                         break
     
                 if check[j] == 0:
@@ -100,6 +102,8 @@ def construction(N,M,P,c,a,b):
 
         if sel >= 0:                                
             X[sel] = 1
+            Xs[0] = Xs[0] + 1
+            Xs[int(Xs[0])] = sel
             check[sel] = 1
             fact = 1
             for i in range(M):
@@ -109,23 +113,79 @@ def construction(N,M,P,c,a,b):
             for p in range(P):
                 Z[p] = Z[p] + c[p][sel]
     
-    Z[p+1] = 0
+    Z[P] = 0
     for i in range(M):
         if R[i]>b[i]:
-            Z[p+1] = Z[p+1] +1
+            Z[P] = Z[P] +1
             
+    if Z[P] < F.Z[P]:
+        F = Solution(X,Xs,Xn,Z,R)
+    if Z[P] == F.Z[P] and Z[0] > F.Z[0]:
+        F = Solution(X,Xs,Xn,Z,R)
+
+    return F
+
+def Rexact(N,M,P,c,a,b,Fp,F,cputime):
+
+    X = Fp[0].X.copy()
+    Xs = Fp[0].Xs.copy()
+    Xn = Fp[0].Xn.copy()
+    Z = Fp[0].Z.copy()
+    R = Fp[0].R.copy()
+    
+    
+    mod = Model("Opt_KSP")
+    Xg = mod.addVars(N, vtype=GRB.BINARY, name="Xg")
+    Zg = mod.addVars(P, vtype=GRB.CONTINUOUS, name="Zg")
+    Pg = mod.addVars(M, lb=0, vtype=GRB.CONTINUOUS, name="Pg")
+
+    mod.setParam(GRB.Param.OutputFlag, 0)
+
+    mod.update()
+
+    name = "c1"
+    for m in range(M):
+        mod.addConstr(quicksum(a[m][j]*Xg[j] for j in range(N) ) <= b[m] + Pg[m], name=name)
+        
+    name = "c2"
+    for i in range(N):
+        mod.addConstr(Xg[i] >= X[i], name=name)
+        
+    name = "c3"
+    for p in range(P):
+        mod.addConstr(Zg[p] == quicksum(c[p][j]*Xg[j] for j in range(N)), name=name)
+
+    mod.setObjective(Zg[0] - 100*quicksum(Pg[m] for m in range(M)), GRB.MAXIMIZE)
+    
+    mod.update()
+    mod.optimize()
+    
     Xs = np.zeros((N+1))
     Xn = np.zeros((N+1))
+    Z = np.zeros((P+1))
+    R = np.zeros((M))
     for i in range(N):
-        if X[i]==1:
+        X[i] = Xg[i].X
+        if X[i] >= 0.95:
+            X[i] = 1
             Xs[0]=Xs[0]+1
-            Xs[int(Xs[0])] = i
+            Xs[int(Xs[0])]=i
+            for p in range(P):
+                Z[p] = Z[p] + c[p][i]
+            for m in range(M):
+                R[m] = R[m] + a[m][i]
         else:
+            X[i]=0
             Xn[0]=Xn[0]+1
-            Xn[int(Xn[0])] = i
-
-    F = []
-    F.append(Solution(X,Xs,Xn,Z,R))
-    ns = 1
-
-    return F, ns, UB, LB
+            Xn[int(Xn[0])]=i
+    Z[P] = 0
+    for m in range(M):
+        if R[m] > b[m]:
+            Z[P] = Z[P] + 1
+            
+    if Z[P] < F.Z[P]:
+        F = Solution(X,Xs,Xn,Z,R)
+    if Z[P] == F.Z[P] and Z[0] > F.Z[0]:
+        F = Solution(X,Xs,Xn,Z,R)
+    
+    return F

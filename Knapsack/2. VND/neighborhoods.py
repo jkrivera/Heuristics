@@ -130,7 +130,7 @@ def N3(N,M,P,c,a,b,F,k):
     return F, k
 
 
-def N4(N,M,P,c,a,b,F,k,cputime):
+def N4(N,M,P,c,a,b,F,k,cputime,cp):
     Rb = np.zeros((M))
     Zb = F.Z.copy()
     i1b = -1
@@ -167,6 +167,15 @@ def N4(N,M,P,c,a,b,F,k,cputime):
                             i2b = i2
                             j1b = j1
                             j2b = j2
+
+                    if (time.time()-cputime) > cp*60:
+                        break
+                if (time.time()-cputime) > cp*60:
+                    break
+            if (time.time()-cputime) > cp*60:
+                break
+        if (time.time()-cputime) > cp*60:
+            break
                     
     if i1b != -1:
         k = 1
@@ -183,15 +192,6 @@ def N4(N,M,P,c,a,b,F,k,cputime):
         F.Z = Zb.copy()
         F.R = Rb.copy()
                         
-#                        if (time.time()-cputime) > 5*60:
-#                            break
-#                if (time.time()-cputime) > 5*60:
-#                    break
-#            if (time.time()-cputime) > 5*60:
-#                break
-#        if (time.time()-cputime) > 5*60:
-#            break
-
     return F, k
 
 
@@ -280,14 +280,14 @@ def N6(N,M,P,c,a,b,F,k,cputime):
                     Zb = Za.copy()
                     i1b = i1
                     j1b = j1
-                    j2b = j2
+                    i2b = i2
                 else:
                     if Za[0] > Zb[0] and Za[P] == Zb[P]:
                         Rb = Ra.copy()
                         Zb = Za.copy()
                         i1b = i1
                         j1b = j1
-                        j2b = j2
+                        i2b = i2
                 
     if i1b != -1:
         k = 1

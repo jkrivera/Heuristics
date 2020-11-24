@@ -149,14 +149,14 @@ def N4(N,M,P,c,a,b,F,s,ns,k,cputime):
                             F.append(Solution(X,Xs,Xn,Za,Ra,np.zeros((6))))
                             ns=ns+1
                         
-#                        if (time.time()-cputime) > 5*60:
-#                            break
-#                if (time.time()-cputime) > 5*60:
-#                    break
-#            if (time.time()-cputime) > 5*60:
-#                break
-#        if (time.time()-cputime) > 5*60:
-#            break
+                        if (time.time()-cputime) > 5*60:
+                            break
+                if (time.time()-cputime) > 5*60:
+                    break
+            if (time.time()-cputime) > 5*60:
+                break
+        if (time.time()-cputime) > 5*60:
+            break
 
     return F, k, ns
 
