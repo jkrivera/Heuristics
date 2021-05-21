@@ -13,9 +13,9 @@ from construction import construction
 from vnd import vnd
 
 
-for ins in range(1,21):
+for ins in range(10,21):
 
-    workbook = xlsxwriter.Workbook('JKRvnd' + str(ins) + '.xlsx')
+    workbook = xlsxwriter.Workbook('JKRvnd_' + str(ins) + '.xlsx')
     
     N, M, P, c, a, b = reading(ins)
     

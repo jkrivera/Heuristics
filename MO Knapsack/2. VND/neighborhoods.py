@@ -113,48 +113,51 @@ def N3(N,M,P,c,a,b,F,s,ns,k):
 
 def N4(N,M,P,c,a,b,F,s,ns,k,cputime):
     for i1 in range(1,int(F[s-1].Xs[0]+1)):
-        for i2 in range(i1+1,int(F[s-1].Xs[0]+1)):
-            for j1 in range(1,int(F[s-1].Xn[0]+1)):
-                for j2 in range(j1+1,int(F[s-1].Xn[0]+1)):
-#                    if random.random() < 0.5:
-                        dom = 1
-                        Ra = np.zeros((M))
-                        Za = np.zeros((P+1))
-                        for m in range(M):
-                            Ra[m] = F[s-1].R[m] - a[m][int(F[s-1].Xs[i1])] - a[m][int(F[s-1].Xs[i2])] + a[m][int(F[s-1].Xn[j1])] + a[m][int(F[s-1].Xn[j2])]
-                            if Ra[m] > b[m]:
-                                Za[P] = Za[P] + 1
-                                if Za[P] > F[s-1].Z[P]:
+        if random.random() < 0.84:
+            for i2 in range(i1+1,int(F[s-1].Xs[0]+1)):
+                if random.random() < 0.84:
+                    for j1 in range(1,int(F[s-1].Xn[0]+1)):
+                        if random.random() < 0.84:
+                            for j2 in range(j1+1,int(F[s-1].Xn[0]+1)):
+                                if random.random() < 0.84:
+                                    dom = 1
+                                    Ra = np.zeros((M))
+                                    Za = np.zeros((P+1))
+                                    for m in range(M):
+                                        Ra[m] = F[s-1].R[m] - a[m][int(F[s-1].Xs[i1])] - a[m][int(F[s-1].Xs[i2])] + a[m][int(F[s-1].Xn[j1])] + a[m][int(F[s-1].Xn[j2])]
+                                        if Ra[m] > b[m]:
+                                            Za[P] = Za[P] + 1
+                                            if Za[P] > F[s-1].Z[P]:
+                                                break
+                                    if Za[P] <= F[s-1].Z[P]:
+                                        if Za[P] < F[s-1].Z[P]:
+                                            dom = 0
+                                        for p in range(P):
+                                            Za[p] = F[s-1].Z[p] - c[p][int(F[s-1].Xs[i1])] - c[p][int(F[s-1].Xs[i2])] + c[p][int(F[s-1].Xn[j1])] + c[p][int(F[s-1].Xn[j2])]
+                                            if Za[p] > F[s-1].Z[p]:
+                                                dom = 0
+                                    
+                                    if dom == 0:
+                                        X = F[s-1].X.copy()
+                                        X[int(F[s-1].Xs[i1])] = 0
+                                        X[int(F[s-1].Xs[i2])] = 0
+                                        X[int(F[s-1].Xn[j1])] = 1
+                                        X[int(F[s-1].Xn[j2])] = 1
+                                        Xn = F[s-1].Xn.copy()
+                                        Xs = F[s-1].Xs.copy()
+                                        Xn[j1]=F[s-1].Xs[i1]
+                                        Xs[i1]=F[s-1].Xn[j1]
+                                        Xn[j2]=F[s-1].Xs[i2]
+                                        Xs[i2]=F[s-1].Xn[j2]
+                                        F.append(Solution(X,Xs,Xn,Za,Ra,np.zeros((6))))
+                                        ns=ns+1
+                                    
+                                if (time.time()-cputime) > 5*60:
                                     break
-                        if Za[P] <= F[s-1].Z[P]:
-                            if Za[P] < F[s-1].Z[P]:
-                                dom = 0
-                            for p in range(P):
-                                Za[p] = F[s-1].Z[p] - c[p][int(F[s-1].Xs[i1])] - c[p][int(F[s-1].Xs[i2])] + c[p][int(F[s-1].Xn[j1])] + c[p][int(F[s-1].Xn[j2])]
-                                if Za[p] > F[s-1].Z[p]:
-                                    dom = 0
-                        
-                        if dom == 0:
-                            X = F[s-1].X.copy()
-                            X[int(F[s-1].Xs[i1])] = 0
-                            X[int(F[s-1].Xs[i2])] = 0
-                            X[int(F[s-1].Xn[j1])] = 1
-                            X[int(F[s-1].Xn[j2])] = 1
-                            Xn = F[s-1].Xn.copy()
-                            Xs = F[s-1].Xs.copy()
-                            Xn[j1]=F[s-1].Xs[i1]
-                            Xs[i1]=F[s-1].Xn[j1]
-                            Xn[j2]=F[s-1].Xs[i2]
-                            Xs[i2]=F[s-1].Xn[j2]
-                            F.append(Solution(X,Xs,Xn,Za,Ra,np.zeros((6))))
-                            ns=ns+1
-                        
                         if (time.time()-cputime) > 5*60:
                             break
                 if (time.time()-cputime) > 5*60:
                     break
-            if (time.time()-cputime) > 5*60:
-                break
         if (time.time()-cputime) > 5*60:
             break
 
