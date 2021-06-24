@@ -13,6 +13,10 @@ function [id,fin,nt,nrec,nprec,nsuc,dur,Prec,R,rec,opt] = reading(id,fin)
 % rec: resource consumption. Number of resources that activity i requires from resource j.
 % opt: optimal or best known solution of problem id
 
+if mod(id,100)==0
+    id
+end
+
 id=id+1;
 
 % Define the size of the problem
@@ -35,7 +39,7 @@ else
 end
 
 % Last instance
-if id == 480*3+600
+if id == 480%*3+600
     fin=1;
 end
 
