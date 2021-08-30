@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?><project>
+	<version>1.0</version>
+	<description>Model1</description>
+	<configs>
+		<config default="true" name="Conf1" category="opl">
+			<ref type="data" name="Parallel Machines Scheduling.dat">
+			</ref>
+			<ref type="model" name="Parallel Machines Scheduling 2.mod">
+			</ref>
+		</config>
+	</configs>
+	
+</project>
