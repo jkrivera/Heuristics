@@ -134,52 +134,52 @@ toc
 SolD=Sol;
 
 %% Solución estocástica
-
-tic
-
-Sol=SolD;
-Best = 1;
-for h = 1:nsol
-    
-    Sol(h).rectime=zeros(m,sum(dur));
-    Sol(h).St = zeros(1,n);
-    
-    for j=2:n
-        
-        for i = 1:prec(Sol(h).S(j),1)
-            if Sol(h).St(Sol(h).S(j)) < Sol(h).St(prec(Sol(h).S(j),i+1)) + durp(prec(Sol(h).S(j),i+1))
-                Sol(h).St(Sol(h).S(j)) = Sol(h).St(prec(Sol(h).S(j),i+1)) + durp(prec(Sol(h).S(j),i+1));
-            end
-        end
-        
-        t = Sol(h).St(Sol(h).S(j));
-        while t <= Sol(h).St(Sol(h).S(j)) + durp(Sol(h).S(j))
-            t=t+1;
-            for k=1:m
-                if Sol(h).rectime(k,t) + rec(k,Sol(h).S(j)) > R(k)
-                    Sol(h).St(Sol(h).S(j)) = t;
-                    break;
-                end
-            end
-        end
-        
-        for t = Sol(h).St(Sol(h).S(j)) + 1 : Sol(h).St(Sol(h).S(j)) + durp(Sol(h).S(j))
-            for k=1:m
-                Sol(h).rectime(k,t) = Sol(h).rectime(k,t) + rec(k,Sol(h).S(j));
-            end
-        end
-        
-    end
-    
-    Sol(h).Z = Sol(h).St(n);
-    
-    if Sol(Best).Z > Sol(h).Z
-        Best = h;
-    end
-    
-end
-toc
-[Best Sol(Best).Z]
+% 
+% tic
+% 
+% Sol=SolD;
+% Best = 1;
+% for h = 1:nsol
+%     
+%     Sol(h).rectime=zeros(m,sum(dur));
+%     Sol(h).St = zeros(1,n);
+%     
+%     for j=2:n
+%         
+%         for i = 1:prec(Sol(h).S(j),1)
+%             if Sol(h).St(Sol(h).S(j)) < Sol(h).St(prec(Sol(h).S(j),i+1)) + durp(prec(Sol(h).S(j),i+1))
+%                 Sol(h).St(Sol(h).S(j)) = Sol(h).St(prec(Sol(h).S(j),i+1)) + durp(prec(Sol(h).S(j),i+1));
+%             end
+%         end
+%         
+%         t = Sol(h).St(Sol(h).S(j));
+%         while t <= Sol(h).St(Sol(h).S(j)) + durp(Sol(h).S(j))
+%             t=t+1;
+%             for k=1:m
+%                 if Sol(h).rectime(k,t) + rec(k,Sol(h).S(j)) > R(k)
+%                     Sol(h).St(Sol(h).S(j)) = t;
+%                     break;
+%                 end
+%             end
+%         end
+%         
+%         for t = Sol(h).St(Sol(h).S(j)) + 1 : Sol(h).St(Sol(h).S(j)) + durp(Sol(h).S(j))
+%             for k=1:m
+%                 Sol(h).rectime(k,t) = Sol(h).rectime(k,t) + rec(k,Sol(h).S(j));
+%             end
+%         end
+%         
+%     end
+%     
+%     Sol(h).Z = Sol(h).St(n);
+%     
+%     if Sol(Best).Z > Sol(h).Z
+%         Best = h;
+%     end
+%     
+% end
+% toc
+% [Best Sol(Best).Z]
 
 %% Solución estocástica 2
 
@@ -231,7 +231,7 @@ for h = 1:nsol
     
     if Sol(Best).Z > Sol(h).Z
         Best = h;
-        [Best Sol(Best).Z toc]
+%        [Best Sol(Best).Z toc]
     end
     
 end
