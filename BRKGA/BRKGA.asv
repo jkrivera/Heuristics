@@ -2,7 +2,7 @@ clear
 format 'bank'
 
 tic
-[problem] = SeqGen(7,3,2);
+[problem] = SeqGen(5,3,2);
 toc
 
 rng(27112016)
@@ -26,7 +26,7 @@ H=P;
 for i = 1:npop
     P(i).RK = rand(1,problem.nrk);
     P(i) = decode2(P(i),problem,best);
-    if b==1 || P(b).F > P(i).F
+    if P(b).F > P(i).F
         b=i;
         [0 i P(b).F toc]
     end
@@ -50,8 +50,8 @@ while g==g
             H(c) = mutation(H(c),problem.nrk);
         end
         H(c)=decode2(H(c),problem,worst);
-        if H(c).F<H(bh).F
-            bh=c;
+        if H(c).F<H(b).F
+            b=c;
             if best.F > H(c).F
                 best=H(c);
                 [g c+(g-1)*npop best.F toc]
@@ -63,8 +63,8 @@ while g==g
             H(c+1) = mutation(H(c+1),problem.nrk);
         end
         H(c+1)=decode2(H(c+1),problem,worst);
-        if H(c+1).F<H(bh).F
-            bh=c+1;
+        if H(c+1).F<H(b).F
+            b=c+1;
             if best.F > H(c+1).F
                 best=H(c+1);
                 [g c+1+(g-1)*npop best.F toc]
@@ -72,7 +72,7 @@ while g==g
         end
     end
     
-    [P,worst,b,w,it] = updateP(P,H,npop,worst,b,w,bh);
+    [P,worst,w,it] = updateP(P,H,npop,worst,b,w);
     %[g best.F worst.F it toc]
 end
 

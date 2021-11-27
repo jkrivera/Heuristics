@@ -10,7 +10,8 @@ sol.F=0;
 
 for i=1:problem.nrk
     
-    LB = ceil((sum(sol.ns)+problem.nrk-i+1)/problem.m);
+    %LB = ceil((sum(sol.ns)+problem.nrk-i+1)/problem.m);
+    LB = max(sol.ns);
     if LB >= best.F
         sol.F=Inf;
         break;
@@ -19,19 +20,19 @@ for i=1:problem.nrk
     seli = s(i);
     fnd=0;
     for j = 1: problem.m
-        for h = 2:sol.ns(j)-7
-            if isempty(find(sol.Seq(j,h:h+6)==0))
-                if problem.Seq(seli,:) == sol.Seq(j,h:h+6)
+        for h = 2:sol.ns(j)-problem.n
+            if isempty(find(sol.Seq(j,h:h+problem.n-1)==0))
+                if problem.Seq(seli,:) == sol.Seq(j,h:h+problem.n-1)
                     fnd=1;
                     break;
                 end
             else
-                if length(find(sol.Seq(j,h:h+6)==0))>1
+                if length(find(sol.Seq(j,h:h+problem.n-1)==0))>1
                     fnd=1;
                     sol.F=Inf;
                     break;
                 else
-                    if sum(sol.Seq(j,h:h+6)==problem.Seq(seli,:)) == problem.n-1
+                    if sum(sol.Seq(j,h:h+problem.n-1)==problem.Seq(seli,:)) == problem.n-1
                         fnd=1;
                         break;
                     end
@@ -68,6 +69,7 @@ for i=1:problem.nrk
                         else
                             if length(find(sol.Seq(h,j:sol.ns(h)) == 0))>1
                                 sol.F=Inf;
+                                break;
                             else
                                 if sum(sol.Seq(h,j:sol.ns(h))==problem.Seq(seli,1:sol.ns(h)-j+1)) == length(sol.Seq(h,j:sol.ns(h)))-1
                                     k=j;
