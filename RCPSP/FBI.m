@@ -3,7 +3,7 @@ function [S,ns,res,fullres] = FBI(Prec, dur, nprec, nsuc, nrec, rec, nt, R, S, n
 [~, ord] = sortrows(S.St(2:nt-1)'+dur(2:nt-1),'descend');
 ord=[nt ord'+1 1];
 Sinv.sol=nt+1-ord;
-Sinv = makespan(Sinv, Prec(nt:-1:1,nt:-1:1)', nprec, dur(nt:-1:1), rec(:,nt:-1:1), R, nrec, nt);
+Sinv = makespan(Sinv, Prec(nt:-1:1,nt:-1:1)', nsuc(nt:-1:1), dur(nt:-1:1), rec(:,nt:-1:1), R, nrec, nt);
 
 [~, ord] = sortrows(Sinv.St(2:nt-1)'+dur(nt-1:-1:2),'descend');
 ord=[nt ord'+1 1];

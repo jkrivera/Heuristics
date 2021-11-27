@@ -13,11 +13,20 @@ function [id,fin,nt,nrec,nprec,nsuc,dur,Prec,R,rec,opt] = reading(id,fin)
 % rec: resource consumption. Number of resources that activity i requires from resource j.
 % opt: optimal or best known solution of problem id
 
-if mod(id,100)==0
-    id
-end
-
 id=id+1;
+
+if id==1
+    'Starting instances with 30 activities'
+end
+if id==481
+    'Starting instances with 60 activities'
+end
+if id==961
+    'Starting instances with 90 activities'
+end
+if id==1441
+    'Starting instances with 120 activities'
+end
 
 % Define the size of the problem
 if id <= 480
@@ -28,18 +37,21 @@ elseif id <= 960
     sk=2;
     sets=48;
     txt='6';
+   % mean(prom(1:480,:))
 elseif id <= 1440
     sk=3;
     sets=48;
     txt='9';
+    %mean(prom(481:960,:))
 else
     sk=4;
     sets=60;
     txt='12';
+    %mean(prom(961:1440,:))
 end
 
 % Last instance
-if id == 480%*3+600
+if id == 480*3+600
     fin=1;
 end
 

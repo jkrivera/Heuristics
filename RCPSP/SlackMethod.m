@@ -37,7 +37,7 @@ for i=2:nt-1 %Se va construyendo el vector Solucion
     end
     
     %compute the late start and late finish
-    LF(nt)=EF(nt)-dur(nt);
+    LF(nt)=EF(nt);
     LS(nt)=LF(nt)-dur(nt);
     for j=nt-1:-1:2
         if check(j)~=1
@@ -104,8 +104,10 @@ for i=2:nt-1 %Se va construyendo el vector Solucion
 end
 S.sol(nt)=nt;
 
+ES(nt)=max(EF.*Prec(:,nt)');
+
 % Solution cost
-S.C=LS(nt);
+S.C=ES(nt)+dur(nt);
 % Starting times
 S.St = ES;
 

@@ -16,8 +16,16 @@ for i=2:nt-1
                 V.sol(j)=S.sol(i);
                 
                 V = makespan(V, Prec, nprec, dur, rec, R, nrec, nt);
+                error = validation(V, Prec, dur, nprec, nrec, rec, nt, R);
+                if length(error)>0
+                    i=i;
+                end
                 
                 [V,ns,res,fullres] = FBI(Prec, dur, nprec, nsuc, nrec, rec, nt, R, V, ns, res, fullres, id, opt);
+                error = validation(V, Prec, dur, nprec, nrec, rec, nt, R);
+                if length(error)>0
+                    i=i;
+                end
                 
                 if Sp.C > V.C
                     Sp = V;
