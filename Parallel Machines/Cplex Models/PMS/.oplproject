@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ASCII"?><project>
+	<version>1.0</version>
+	<configs>
+		<config default="true" name="Conf" category="opl">
+			<ref type="setting" name="PMS.ops">
+			</ref>
+			<ref type="model" name="PMS2.mod">
+			</ref>
+			<ref type="data" name="PMS_20.dat">
+			</ref>
+		</config>
+	</configs>
+	
+</project>
