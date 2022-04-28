@@ -20,13 +20,13 @@ if exist('method')
     met=method.id;
     nvec=method.nvec;
 else
-    met=3;
+    met=1;
     nvec=4;
 end
 
-if ~exist('result')
-    result(met).id=met;
-end
+% if ~exist('result')
+%     result(met).id=met;
+% end
 
 tic;
 
@@ -45,6 +45,13 @@ while fin==0
     res=1;
     
     tic
+    
+    if met==0
+%        S.sol=zeros(1,nt);
+        S=MetodoConstructivo(Prec, -nsuc-sum(rec)/7, nt);
+        %S.sol=1:nt;
+        S = makespan(S, Prec, nprec, dur, rec, R, nrec, nt);
+    end
     
     if met==1 || met==2 || met==3
         % Activity list based on slacks
@@ -79,8 +86,8 @@ while fin==0
     prom(id,:)=(fullres(id,:)-opt)/opt*100;
     
 end
-t;
-[mean(prom(1:480,:)) mean(prom(481:960,:)) mean(prom(961:1440,:)) mean(prom(1441:2040,:)) mean(prom)]
+t
+[mean(prom(1:480,1))]% mean(prom(481:960,:)) mean(prom(961:1440,:)) mean(prom(1441:2040,:)) mean(prom)]
 %mean(prom(1441:2040,:))
 %mean(prom)
 result=0;

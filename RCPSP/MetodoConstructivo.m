@@ -2,7 +2,7 @@
 %Criterio de selección: actividades con menor valor en parámetro 'criterio'
 %Entradas: Prec, duraciones, nt
 %Salidas: solucion
-function [solucion]=MetodoConstructivo(Prec, criterio, nt)
+function [S]=MetodoConstructivo(Prec, criterio, nt)
 solucion=zeros(1,nt); %Vector con el orden de las actividades
 asignacion=zeros(1,nt); %Vector que permite saber cuales actividades ya han sido asignadas (las que tienen 1)
 numActividad=0; %Actividad a ser asignada
@@ -35,5 +35,7 @@ for i=2:(nt-1) %Se va construyendo el vector Solucion
     solucion(i)=numActividad;
     Prec2(solucion(i),:)=zeros(1,nt);
 end
+
+S.sol=solucion;
 
 end

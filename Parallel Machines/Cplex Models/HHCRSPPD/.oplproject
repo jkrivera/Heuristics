@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ASCII"?><project>
+	<version>1.0</version>
+	<configs>
+		<config default="true" name="Conf_CP" category="opl">
+			<ref type="model" name="HHCRSPPD.mod">
+			</ref>
+			<ref type="setting" name="HHCRSPPD.ops">
+			</ref>
+			<ref type="data" name="HHCRSPPD.dat">
+			</ref>
+		</config>
+		<config default="false" name="Conf_MILP_LS" category="opl">
+			<ref type="model" name="HHCRSPPD_MILP.mod">
+			</ref>
+			<ref type="data" name="HHCRSPPD.dat">
+			</ref>
+			<ref type="data" name="TSP_sol.dat">
+			</ref>
+		</config>
+	</configs>
+	
+</project>

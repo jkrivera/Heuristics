@@ -19,6 +19,7 @@ if id==1
     'Starting instances with 30 activities'
 end
 if id==481
+    fin=1;
     'Starting instances with 60 activities'
 end
 if id==961
