@@ -1,0 +1,15 @@
+n20q10A.dat
+n20q10H.dat
+n30q10A.dat
+n30q10H.dat
+n40q10A.dat
+n40q10H.dat
+n50q10A.dat
+n50q10H.dat
+n60q10A.dat
+n60q10H.dat
+n100q10A.dat
+n200q10A.dat
+n300q10A.dat
+n400q10A.dat
+n500q10A.dat

@@ -13,7 +13,7 @@ from construction import construction3
 # For each instance
 # i=5
 # for ins in range(i,i+1):
-for ins in range(10,16):
+for ins in range(1,16):
     
     print("Instance ",str(ins))
     
@@ -33,25 +33,25 @@ for ins in range(10,16):
     # print((time.time()-cputime))
     # print("")
     
-    cputime = time.time()
-    Sol3=construction3(n,p,Q,q,d,0.95)
-    print((time.time()-cputime))
-    print("")
+    # cputime = time.time()
+    # Sol3=construction3(n,p,Q,q,d,0.95)
+    # print((time.time()-cputime))
+    # print("")
 
-    cputime = time.time()
-    Sol3=construction3(n,p,Q,q,d,0.9)
-    print((time.time()-cputime))
-    print("")
+    # cputime = time.time()
+    # Sol3=construction3(n,p,Q,q,d,0.9)
+    # print((time.time()-cputime))
+    # print("")
 
-    cputime = time.time()
-    Sol3=construction3(n,p,Q,q,d,0.8)
-    print((time.time()-cputime))
-    print("")
+    # cputime = time.time()
+    # Sol3=construction3(n,p,Q,q,d,0.8)
+    # print((time.time()-cputime))
+    # print("")
 
-    cputime = time.time()
-    Sol3=construction3(n,p,Q,q,d,0.6)
-    print((time.time()-cputime))
-    print("")
+    # cputime = time.time()
+    # Sol3=construction3(n,p,Q,q,d,0.6)
+    # print((time.time()-cputime))
+    # print("")
 
 # wb = openpyxl.Workbook()
 # hoja = wb.active

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ASCII"?><project>
 	<version>1.0</version>
 	<configs>
-		<config default="true" name="Conf_CP" category="opl">
+		<config default="false" name="Conf_CP" category="opl">
 			<ref type="model" name="HHCRSPPD.mod">
 			</ref>
 			<ref type="setting" name="HHCRSPPD.ops">
@@ -15,6 +15,26 @@
 			<ref type="data" name="HHCRSPPD.dat">
 			</ref>
 			<ref type="data" name="TSP_sol.dat">
+			</ref>
+		</config>
+		<config default="true" name="Conf_MILP_LS_2" category="opl">
+			<ref type="model" name="HHCRSPPD_MILP_2.mod">
+			</ref>
+			<ref type="data" name="HHCRSPPD.dat">
+			</ref>
+			<ref type="data" name="TSP_sol.dat">
+			</ref>
+		</config>
+		<config default="false" name="Conf_MILP_1" category="opl">
+			<ref type="model" name="MILP_1.mod">
+			</ref>
+			<ref type="data" name="HHCRSPPD.dat">
+			</ref>
+		</config>
+		<config default="false" name="Conf_MILP_2" category="opl">
+			<ref type="model" name="MILP_2.mod">
+			</ref>
+			<ref type="data" name="HHCRSPPD.dat">
 			</ref>
 		</config>
 	</configs>
