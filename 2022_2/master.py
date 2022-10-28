@@ -154,16 +154,15 @@ def GRH(problem,K,nsol):
 [files, ninst] = reading_names()
 
 tl   = 60*10 # Time Limit
-niter = 100  # maximum number of generations
+niter = 1000  # maximum number of generations
 ##############################################################################
 inst = 0
 while inst < ninst:
     problem = reading(files[inst])
 
     K=2
-    nsol = 1
     cputime = time.time()
-    S,Z,F = GRH(problem,K,nsol)
+    S,Z,F = GRH(problem,K,niter)
 
     print(inst,problem.n,"\t",Z,"\t",F,"\t",(time.time()-cputime))
     inst+=1
