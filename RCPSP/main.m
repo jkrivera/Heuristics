@@ -1,4 +1,4 @@
-function result=rcpsp(method,result)
+%function result=rcpsp(method)
 %% Metaheuristics
 %  1. Slack-based construction (SBM)
 %  2. SBM + FBI
@@ -29,6 +29,7 @@ end
 % end
 
 tic;
+met=0;
 
 fin=0;
 id=0;
@@ -48,7 +49,7 @@ while fin==0
     
     if met==0
 %        S.sol=zeros(1,nt);
-        S=MetodoConstructivo(Prec, -nsuc-sum(rec)/7, nt);
+        S=MetodoConstructivo(Prec, -nsuc-sum(rec)/sum(R)/nt, nt);
         %S.sol=1:nt;
         S = makespan(S, Prec, nprec, dur, rec, R, nrec, nt);
     end
@@ -91,4 +92,4 @@ t
 %mean(prom(1441:2040,:))
 %mean(prom)
 result=0;
-end
+%end

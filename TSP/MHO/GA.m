@@ -31,6 +31,7 @@ while toc < tmax
     [f,fs] = sort(f);
     f(npop+1:end)=[];
     P=P(fs(1:npop),:);
+    [min(f) niter toc]
 end
 
 end

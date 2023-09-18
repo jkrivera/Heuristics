@@ -1,5 +1,5 @@
 function [sol,f,it] = ILS(n,d,sol,f,tmax)
-
+tic
 [sol,f] = LS(n,d,sol,f);
 it=0;
 while toc<=tmax
@@ -10,6 +10,7 @@ while toc<=tmax
         sol = solp;
         f = fp;
     end
+    [it f toc]
 end
 
 end
