@@ -11,12 +11,19 @@ act = 0;
 while act < n*m
     fin = 0;
     sel.job = 0;
+    sel.inicio = Inf;
+    sel.fin = Inf;
     i=0;
-    while sel.job <= n && fin == 0
+    while sel.job <= n
         i = i+1;
         if proc(i) == 1
             inicio = t(Rec(i,proc(i)),maq(Rec(i,proc(i))));
-            fin = inicio + P(i,Rec(i,proc(i)));
+            fin = inicio + P(i,proc(i));
+        end
+        if fin <= sel.fin
+            sel.job = i;
+            sel.fin = fin;
+            sel.inicio = inicio;
         end
     end
 end
